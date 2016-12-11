@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Node Counter</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    <header>
+       <h5> 由 Node.js， Chromium 和 Electron 强力驱动。版本号 0.0.1 </h5>
+    </header>
+    <main>
+      <div class="input-area">
+        <button id="script">上传文件夹</button>
+      </div>
+      <div id="render-area"></div>
+    </main>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  padding: 10px;
+  background-color: #293c55;
+  color: white;
+  border: none;
+  z-index: 9999;
+}
+
+main {
+  padding-top: 60px;
+}
+
+main div.input-area {
+  margin: 20px;
+  padding: 10px;
+}
+
+main div.input-area input#dir {
+  width: 500px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+main div.input-area button {
+  border: none;
+  background-color: #293c55;
+  color: white;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+/*-- 图表部分 --*/
+div.chart-container {
+  width: 100%;
+  /*height: 1000px;*/
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
+
+div.chart {
+  width: 1200px;
+  height: 600px;
+}
+
+div.table {
+  position: relative;
+  left: 100px;
+  top: 10px;
+  font-size: 12px;
+}
+
+div.table table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+div.table thead {
+  border-bottom: 1px solid black;
+}
+
+div.table table th, 
+div.table table td{
+  padding: 5px;
+}
+
+div.table .odd {
+  background-color: #f9f9f9;
+}
+
+div.table .even {
+  background-color: #fff;
+}
