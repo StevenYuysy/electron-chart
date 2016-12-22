@@ -35,11 +35,11 @@ function calc(arrX, arrY) {
   let leftarea = [];
   let rightarea = [];
   let coordinate_dict = {};
-  
+
   for (let j=0; j < arrX.length; j++) {
     coordinate_dict[arrY[j]] = arrX[j];
   }
-  
+
   arrY.sort((a, b) => {
     return b - a;
   });
@@ -55,7 +55,7 @@ function calc(arrX, arrY) {
 
   middle = (highest + lowest) / 2;
   console.log(middle);
-  
+
   for (let i of arrY) {
     if ((i-1) < middle && (i+1) > middle) {
       if (coordinate_dict[i] < coordinate_dict[lowest]) {
@@ -65,22 +65,22 @@ function calc(arrX, arrY) {
       }
     }
   }
-  
+
   console.log(leftarea);
   console.log(rightarea);
-  
+
   startY = getCloset(leftarea, middle);
   startX = coordinate_dict[startY];
   endY = getCloset(rightarea, middle);
   endX = coordinate_dict[endY];
   halfWidth = endX - startX;
-  
+
   console.log('最低点为：' + coordinate_dict[lowest] + ',' + lowest);
   console.log('峰值坐标为' + coordinate_dict[highest] + ',' + highest);
   console.log('起点光谱为' + startX + ',' + startY);
   console.log('结束光谱为'+ endX + ',' + endY);
   console.log('半高宽为' + halfWidth);
-  
+
   return {
     'lowest': {
       'x': coordinate_dict[lowest],
@@ -100,7 +100,7 @@ function calc(arrX, arrY) {
     },
     'halfWidth': halfWidth
   }
-      
+
 }
 
 module.exports = calc;
