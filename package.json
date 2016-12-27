@@ -17,7 +17,8 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "exceljs": "^0.2.38"
   },
   "dependencies": {
     "echarts": "^3.3.2",

@@ -179,7 +179,28 @@ btn.addEventListener('click', () => {
   render_area.addEventListener('click', (event)=> {
     let btn = event.target;
     if (btn.className == 'output-excel') {
-      output(table_data[btn.dataset.id]);
+      // Promise 封装异步对象
+      let showDialog2 = new Promise((resolve, reject) => {
+        dialog.showOpenDialog({
+          title:"Select a folder",
+          properties: ["openDirectory"]
+        }, function (folderPaths) {
+
+          // folderPaths is an array that contains all the selected paths
+          if(folderPaths === undefined){
+            console.log("No destination folder selected");
+            return;
+          }else{
+            console.log(folderPaths);
+            resolve(folderPaths[0]);
+          }
+        })
+      });
+
+      showDialog2.then((dir) => {
+        // console.log(dir);
+        output(dir, table_data[btn.dataset.id]);
+      })
     }
   }, false);
 
