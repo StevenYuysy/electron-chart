@@ -38,6 +38,10 @@ main div.input-area button {
   border-radius: 10px;
 }
 
+main div.input-area .hidden {
+  display: none;
+}
+
 /*-- 图表部分 --*/
 div.chart-container {
   width: 100%;
@@ -68,7 +72,7 @@ div.table thead {
   border-bottom: 1px solid black;
 }
 
-div.table table th, 
+div.table table th,
 div.table table td{
   padding: 5px;
 }

@@ -11,7 +11,8 @@ const output = require('./output');
 const echarts = require('echarts');
 
 let btn = document.getElementById('script');
-
+let outputbtn = document.getElementById('excel');
+let alert = document.getElementById('alert');
 // 按钮点击运行事件
 btn.addEventListener('click', () => {
 
@@ -38,8 +39,8 @@ btn.addEventListener('click', () => {
     })
   });
 
+  alert.innerHTML = '正在渲染数据';
   showDialog.then((dir) => {
-
     // 遍历当前目录，找出后缀为 xlsx 的文件夹读取，忽略以 ~ 开头的文件
     travel(dir, (fileName) => {
       console.log(fileName);
@@ -107,10 +108,7 @@ btn.addEventListener('click', () => {
         table_line_index ++;
       }
       book_index ++;
-      div_table.innerHTML = tableHTML + `</table>
-      <div>
-        <button class="output-excel" data-id="${book_index}"> 导出为 excel </button>
-      </div>`
+      div_table.innerHTML = tableHTML;
       // ecahrt 部分
       render_area.appendChild(div_container);
       let chart = echarts.init(div_chart);
@@ -132,11 +130,13 @@ btn.addEventListener('click', () => {
             saveAsImage: {}
           }
         },
-        grid: {
-          left: '10%',
-          bottom: '20%',
-          width: '1200px'
-        },
+        grid: [
+          {
+            left: '10%',
+            bottom: '20%',
+            width: '1200px'
+          }
+        ],
         xAxis: {
           name: 'Wavelenggth(nm)',
           nameLocation: 'middle',
@@ -173,35 +173,37 @@ btn.addEventListener('click', () => {
       };
       chart.setOption(option);
     }
+    alert.innerHTML = '数据已渲染完毕'
+    outputbtn.className = '';
   })
 
-  // 添加冒泡事件用于处理 excel 导出
-  render_area.addEventListener('click', (event)=> {
-    let btn = event.target;
-    if (btn.className == 'output-excel') {
-      // Promise 封装异步对象
-      let showDialog2 = new Promise((resolve, reject) => {
-        dialog.showOpenDialog({
-          title:"Select a folder",
-          properties: ["openDirectory"]
-        }, function (folderPaths) {
+  // 用于处理 excel 导出
+  outputbtn.addEventListener('click', (event)=> {
 
-          // folderPaths is an array that contains all the selected paths
-          if(folderPaths === undefined){
-            console.log("No destination folder selected");
-            return;
-          }else{
-            console.log(folderPaths);
-            resolve(folderPaths[0]);
-          }
-        })
-      });
+    // Promise 封装异步对象
+    let showDialog2 = new Promise((resolve, reject) => {
+      dialog.showOpenDialog({
+        title:"Select a folder",
+        properties: ["openDirectory"]
+      }, function (folderPaths) {
 
-      showDialog2.then((dir) => {
-        // console.log(dir);
-        output(dir, table_data);
+        // folderPaths is an array that contains all the selected paths
+        if(folderPaths === undefined){
+          console.log("No destination folder selected");
+          return;
+        }else{
+          console.log(folderPaths);
+          resolve(folderPaths[0]);
+        }
       })
-    }
+    });
+
+    showDialog2.then((dir) => {
+      // console.log(dir);
+      alert.innerHTML = '正在导出数据';
+      output(dir, table_data);
+      alert.innerHTML = '数据已导出';
+    })
   }, false);
 
 }, false);
