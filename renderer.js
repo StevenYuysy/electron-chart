@@ -71,9 +71,12 @@ btn.addEventListener('click', () => {
       // 渲染数据
       let div_container = document.createElement('div');
       let div_chart = document.createElement('div');
+      let div_chart_sc = document.createElement('div');
       div_container.className = 'chart-container'
       div_chart.className = 'chart';
+      div_chart_sc.className = 'chart-sc';
       div_container.appendChild(div_chart);
+      div_container.appendChild(div_chart_sc);
 
       // 表格部分
       let div_table = document.createElement('div');
@@ -112,11 +115,12 @@ btn.addEventListener('click', () => {
       // ecahrt 部分
       render_area.appendChild(div_container);
       let chart = echarts.init(div_chart);
+      let chart_sc = echarts.init(div_chart_sc);
 
       let option = {
-        tooltip: {
-          trigger: 'axis',
-        },
+        // tooltip: {
+        //   trigger: 'axis',
+        // },
         title: {
           text: render_data.fileName,
         },
@@ -129,11 +133,6 @@ btn.addEventListener('click', () => {
             restore: {},
             saveAsImage: {}
           }
-        },
-        grid: {
-          left: '10%',
-          bottom: '20%',
-          width: '1200px'
         },
         xAxis: {
           name: 'Wavelenggth(nm)',
@@ -151,7 +150,7 @@ btn.addEventListener('click', () => {
         },
         dataZoom: [{
           type: 'inside',
-          start: 0,
+          start: 50,
           end: 100
         }, {
           start: 0,
@@ -166,10 +165,71 @@ btn.addEventListener('click', () => {
               shadowOffsetY: 2
           }
         }],
-        series: render_data.series,
         animation: false,
+        series: render_data.series,
       };
+      let option2 = {
+         title: {
+             text: '散点图'
+         },
+         legend: {
+             right: 10,
+         },
+         toolbox: {
+           feature: {
+             restore: {},
+             saveAsImage: {}
+           }
+         },
+         tooltip: {
+           trigger: 'axis',
+         },
+         dataZoom: [{
+           type: 'inside',
+           start: 98,
+           end: 100
+         }, {
+           start: 0,
+           end: 10,
+           handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+           handleSize: '80%',
+           handleStyle: {
+               color: '#fff',
+               shadowBlur: 3,
+               shadowColor: 'rgba(0, 0, 0, 0.6)',
+               shadowOffsetX: 2,
+               shadowOffsetY: 2
+           }
+         }],
+         xAxis: {
+             splitLine: {
+                 lineStyle: {
+                     type: 'dashed'
+                 }
+             }
+         },
+         yAxis: {
+             splitLine: {
+                 lineStyle: {
+                     type: 'dashed'
+                 }
+             },
+             scale: true
+         },
+         series: {
+             data: render_data.scatter,
+             type: 'scatter',
+             symbolSize: '10',
+             label: {
+                 emphasis: {
+                     show: true,
+                     position: 'top'
+                 }
+             }
+         }
+      }
       chart.setOption(option);
+      chart_sc.setOption(option2);
     }
     alert.innerHTML = '数据已渲染完毕'
     outputbtn.className = '';

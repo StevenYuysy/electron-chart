@@ -4,17 +4,17 @@ const Excel = require('exceljs');
 function output(dir, data) {
   console.log(data);
   console.log(dir);
-  let filePath = dir + "/test.xlsx";
+  let filePath = dir + "/output-data.xlsx";
   var workbook = new Excel.Workbook();
   var worksheet = workbook.addWorksheet('My Sheet');
   worksheet.columns = [
-      { header: '对应文件', key: 'fileName'},
-      { header: '对应曲线', key: 'lineName'},
-      { header: '半高宽', key: 'halfWidth'},
-      { header: '最低点', key: 'lowest'},
-      { header: '峰值坐标', key: 'highest'},
-      { header: '起点光谱', key: 'start'},
-      { header: '结束光谱', key: 'end'}
+      { header: '对应文件', key: 'fileName', width: 50},
+      { header: '对应曲线', key: 'lineName', width: 20},
+      { header: '半高宽', key: 'halfWidth', width: 20},
+      { header: '最低点', key: 'lowest', width: 25},
+      { header: '峰值坐标', key: 'highest', width: 25},
+      { header: '起点光谱', key: 'start', width: 25},
+      { header: '结束光谱', key: 'end', width: 25}
   ];
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i].coordinate.length; j++) {
