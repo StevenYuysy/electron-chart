@@ -130,13 +130,11 @@ btn.addEventListener('click', () => {
             saveAsImage: {}
           }
         },
-        grid: [
-          {
-            left: '10%',
-            bottom: '20%',
-            width: '1200px'
-          }
-        ],
+        grid: {
+          left: '10%',
+          bottom: '20%',
+          width: '1200px'
+        },
         xAxis: {
           name: 'Wavelenggth(nm)',
           nameLocation: 'middle',
