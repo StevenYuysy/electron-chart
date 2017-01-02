@@ -8,13 +8,27 @@ function output(dir, data) {
   var workbook = new Excel.Workbook();
   var worksheet = workbook.addWorksheet('My Sheet');
   worksheet.columns = [
-      { header: 'Id', key: 'id', width: 10 },
-      { header: 'Name', key: 'name', width: 32 },
-      { header: 'D.O.B.', key: 'DOB', width: 10 }
+      { header: '对应文件', key: 'fileName'},
+      { header: '对应曲线', key: 'lineName'},
+      { header: '半高宽', key: 'halfWidth'},
+      { header: '最低点', key: 'lowest'},
+      { header: '峰值坐标', key: 'highest'},
+      { header: '起点光谱', key: 'start'},
+      { header: '结束光谱', key: 'end'}
   ];
-  worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
-  worksheet.addRow({id: 2, name: 'Jane Doe', dob: new Date(1965,1,7)});
-  // workbook.commit();
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].coordinate.length; j++) {
+      worksheet.addRow({
+        fileName: data[i].fileName,
+        lineName: data[i].series[j].name,
+        halfWidth: data[i].coordinate[j].halfWidth,
+        lowest: data[i].coordinate[j].lowest,
+        highest: data[i].coordinate[j].highest,
+        start: data[i].coordinate[j].start,
+        end: data[i].coordinate[j].end,
+      })
+    }
+  }
   fs.writeFile(filePath, " ", function(err) {
     if(err) {
         return console.log(err);

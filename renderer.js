@@ -199,7 +199,7 @@ btn.addEventListener('click', () => {
 
       showDialog2.then((dir) => {
         // console.log(dir);
-        output(dir, table_data[btn.dataset.id]);
+        output(dir, table_data);
       })
     }
   }, false);
