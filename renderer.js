@@ -118,9 +118,9 @@ btn.addEventListener('click', () => {
       let chart_sc = echarts.init(div_chart_sc);
 
       let option = {
-        // tooltip: {
-        //   trigger: 'axis',
-        // },
+        tooltip: {
+          trigger: 'axis',
+        },
         title: {
           text: render_data.fileName,
         },
