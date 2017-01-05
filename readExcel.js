@@ -29,6 +29,7 @@ function readIn(book) {
   render_data.coordinate = [];
   render_data.series = [];
   render_data.name = [];
+  render_data.scatter = [];
 
   for (i = 1; i < columns; i++) {
     coordinateY.push([]);
@@ -37,6 +38,7 @@ function readIn(book) {
     render_data.series.push({});
     console.log(excel_num.head[i]);
     render_data.name.push(worksheet[excel_num.head[i]].v);
+    render_data.scatter.push([]);
   }
 
   for (let z in worksheet) {
@@ -71,6 +73,7 @@ function readIn(book) {
 
   for (let i in coordinateY) {
     render_data.coordinate[i] = calc(coordinateX, coordinateY[i]);
+    render_data.scatter[i] = [parseFloat(render_data.name[i]), render_data.coordinate[i].lowest.x]
   }
 
   return render_data;

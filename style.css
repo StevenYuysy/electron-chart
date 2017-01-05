@@ -52,14 +52,21 @@ div.chart-container {
 }
 
 div.chart {
-  width: 1200px;
-  height: 600px;
+  width: 600px;
+  height: 300px;
+  float: left;
+}
+
+div.chart-sc {
+  width: 600px;
+  height: 300px;
+  float: left;
 }
 
 div.table {
-  position: relative;
-  left: 100px;
-  top: 10px;
+  float: left;
+  margin-left: 100px;
+  margin-top: 10px;
   font-size: 12px;
 }
 
