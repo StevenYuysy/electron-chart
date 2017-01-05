@@ -122,7 +122,7 @@ btn.addEventListener('click', () => {
           trigger: 'axis',
         },
         title: {
-          text: render_data.fileName,
+          text: render_data.fileName.split('\\')[render_data.fileName.split('\\').length-1],
         },
         legend: {
           top: '10%',
@@ -169,9 +169,6 @@ btn.addEventListener('click', () => {
         series: render_data.series,
       };
       let option2 = {
-         title: {
-             text: '散点图'
-         },
          legend: {
              right: 10,
          },
