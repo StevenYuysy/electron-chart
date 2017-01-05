@@ -23,6 +23,30 @@ main div.input-area {
   padding: 10px;
 }
 
+main div.input-area .container-box {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 100px;
+  margin: auto;
+  background-color: #293c55;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+main div.input-area .inner-box {
+  width: 80%;
+  height: 50px;
+  margin: auto;
+  background-color: #293c55;
+  border: 1px dashed white;
+  color: white;
+}
+
+main div.input-area .inner-box p{
+  margin: auto;
+}
+
 main div.input-area input#dir {
   width: 500px;
   height: 30px;
@@ -40,6 +64,20 @@ main div.input-area button {
 
 main div.input-area .hidden {
   display: none;
+}
+
+/*- 提示部分 -*/
+div#alert {
+  position: absolute;
+  right: 100px;
+  top: 35%;
+}
+
+button#excel {
+  position: fixed;;
+  right: 10px;
+  top: 70px;
+  cursor: pointer;
 }
 
 /*-- 图表部分 --*/
