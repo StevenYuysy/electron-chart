@@ -8,4 +8,4 @@
   - series {Array} - 用于渲染 Echart 折线的数组
   - name {Array} - 对应曲线名字的数组
   - scatter {Array} - 用于渲染 Echart 散点图的数组
-  - result - 线性回归计算式
+  - regression {Object} - 散点图线性分析相关对象
