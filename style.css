@@ -78,6 +78,7 @@ button#excel {
   right: 10px;
   top: 70px;
   cursor: pointer;
+  z-index: 999;
 }
 
 /*-- 图表部分 --*/

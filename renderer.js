@@ -22,7 +22,7 @@ btn.ondrop = (ev) => {
 
   let books = [];
 
-  console.log(ev.dataTransfer.files[0].path);
+  // console.log(ev.dataTransfer.files[0].path);
   ev.preventDefault();
   let filePath = ev.dataTransfer.files[0].path;
   if (checkXLSX(filePath)) {
@@ -65,7 +65,7 @@ btn.addEventListener('click', () => {
   showDialog.then((dir) => {
     // 遍历当前目录，找出后缀为 xlsx 的文件夹读取，忽略以 ~ 开头的文件
     travel(dir, (fileName) => {
-      console.log(fileName);
+      // console.log(fileName);
 
       // windows 系统文件路径
       if (fileName.split('\\') > 0) {
@@ -81,7 +81,7 @@ btn.addEventListener('click', () => {
       }
     })
 
-    console.log(books);
+    // console.log(books);
     render(books);
   }, false);
 }, false);
@@ -98,6 +98,7 @@ function render(books) {
   for (let book of books) {
     console.log(book);
     render_data = readIn(book);
+    console.log(render_data);
     table_data.push(render_data);
 
     // 渲染数据
@@ -212,6 +213,7 @@ function render(books) {
        },
        tooltip: {
          trigger: 'axis',
+         formatter: render_data.result,
        },
        dataZoom: [{
          type: 'inside',
@@ -254,6 +256,26 @@ function render(books) {
                    show: true,
                    position: 'top'
                }
+           },
+           markLine: {
+             animation: false,
+             label: {
+                 normal: {
+                     formatter: render_data.regression.label,
+                     textStyle: {
+                         align: 'right'
+                     }
+                 }
+             },
+             lineStyle: {
+                 normal: {
+                     type: 'solid'
+                 }
+             },
+             tooltip: {
+                 formatter: render_data.regression.label
+             },
+             data: [render_data.regression.data]
            }
        }
     }

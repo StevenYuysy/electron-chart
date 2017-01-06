@@ -1,4 +1,5 @@
 const xlsx = require('xlsx');
+const regression = require('regression');
 const calc = require('./calc');
 const excel_num = require('./excel-col');
 
@@ -30,13 +31,14 @@ function readIn(book) {
   render_data.series = [];
   render_data.name = [];
   render_data.scatter = [];
+  render_data.regression = {};
 
   for (i = 1; i < columns; i++) {
+    // console.log(excel_num.head[i]);
     coordinateY.push([]);
     coordinate.push([]);
     render_data.coordinate.push([]);
     render_data.series.push({});
-    console.log(excel_num.head[i]);
     render_data.name.push(worksheet[excel_num.head[i]].v);
     render_data.scatter.push([]);
   }
@@ -52,8 +54,8 @@ function readIn(book) {
       }
     }
   }
-  console.log(coordinateX);
-  console.log(coordinateY);
+  // console.log(coordinateX);
+  // console.log(coordinateY);
 
   for (let j in coordinateY) {
     for (let k in coordinateX) {
@@ -69,12 +71,29 @@ function readIn(book) {
     };
   }
 
-  console.log(coordinate[0])
+  // console.log(coordinate[0])
 
   for (let i in coordinateY) {
     render_data.coordinate[i] = calc(coordinateX, coordinateY[i]);
     render_data.scatter[i] = [parseFloat(render_data.name[i]), render_data.coordinate[i].lowest.x]
   }
+
+  // 线性回归计算
+  let result = regression('linear', render_data.scatter);
+  render_data.regression.label = result.string;
+  render_data.regression.data = [
+    {
+      coord: [render_data.scatter[0][0],
+      render_data.scatter[0][0]*result.equation[0]+result.equation[1]],
+      symbol: 'none'
+    },
+    {
+      coord:[render_data.scatter[render_data.scatter.length-1][0],
+      render_data.scatter[render_data.scatter.length-1][0]*result.equation[0]+result.equation[1]
+      ],
+      symbol: 'none'
+    }
+  ]
 
   return render_data;
 }
