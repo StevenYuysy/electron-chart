@@ -14,6 +14,45 @@ let btn = document.getElementById('script');
 let outputbtn = document.getElementById('excel');
 let alert = document.getElementById('alert');
 
+let tableData;
+
+// Promise 封装异步对象
+function showInputDialog() {
+  return new Promise((resolve, reject) => {
+    dialog.showOpenDialog({
+      title:"Select a folder",
+      properties: ["openDirectory"]
+    }, function (folderPaths) {
+      // folderPaths is an array that contains all the selected paths
+      if(folderPaths === undefined){
+        console.log("No destination folder selected");
+        return;
+      }else{
+        console.log(folderPaths);
+        resolve(folderPaths[0]);
+      }
+    })
+  })
+}
+
+function showOutputDialog() {
+  return new Promise((resolve, reject) => {
+    dialog.showOpenDialog({
+      properties: ["openDirectory", "createDirectory"]
+    }, function (folderPaths) {
+
+      // folderPaths is an array that contains all the selected paths
+      if(folderPaths === undefined){
+        console.log("No destination folder selected");
+        return;
+      }else{
+        console.log(folderPaths);
+        resolve(folderPaths[0]);
+      }
+    })
+  });
+}
+
 btn.ondragover = btn.ondrop = (ev) => {
   ev.preventDefault();
 }
@@ -41,28 +80,9 @@ btn.ondrop = (ev) => {
 
 // 按钮点击运行事件
 btn.addEventListener('click', () => {
-
   let books = [];
 
-  // Promise 封装异步对象
-  let showDialog = new Promise((resolve, reject) => {
-    dialog.showOpenDialog({
-      title:"Select a folder",
-      properties: ["openDirectory"]
-    }, function (folderPaths) {
-
-      // folderPaths is an array that contains all the selected paths
-      if(folderPaths === undefined){
-        console.log("No destination folder selected");
-        return;
-      }else{
-        console.log(folderPaths);
-        resolve(folderPaths[0]);
-      }
-    })
-  });
-
-  showDialog.then((dir) => {
+  showInputDialog().then((dir) => {
     // 遍历当前目录，找出后缀为 xlsx 的文件夹读取，忽略以 ~ 开头的文件
     travel(dir, (fileName) => {
       // console.log(fileName);
@@ -284,36 +304,14 @@ function render(books) {
   }
   alert.innerHTML = '数据已渲染完毕'
   outputbtn.className = '';
-
-  // 用于处理 excel 导出
-  outputbtn.addEventListener('click', (event)=> {
-
-    // Promise 封装异步对象
-    let showDialog2 = new Promise((resolve, reject) => {
-      dialog.showOpenDialog({
-        properties: ["openDirectory", "createDirectory"]
-      }, function (folderPaths) {
-
-        // folderPaths is an array that contains all the selected paths
-        if(folderPaths === undefined){
-          console.log("No destination folder selected");
-          return;
-        }else{
-          console.log(folderPaths);
-          resolve(folderPaths[0]);
-        }
-      })
-    });
-
-    showDialog2.then((dir) => {
-      // console.log(dir);
-      alert.innerHTML = '正在导出数据';
-      output(dir, table_data);
-      alert.innerHTML = '数据已导出';
-    })
-  }, false);
-
+  tableData = table_data;
 }
+
+outputbtn.addEventListener('click', event => {
+  if (alert.innerHTML === '数据已渲染完毕') {
+    console.log(tableData)
+  }
+}, false)
 
 /**
  * 用于遍历目录下面的文件
