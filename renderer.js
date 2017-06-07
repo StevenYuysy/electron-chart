@@ -82,7 +82,7 @@ btn.ondrop = (ev) => {
 btn.addEventListener('click', () => {
   let books = [];
 
-  showInputDialog().then((dir) => {
+  showInputDialog().then(dir => {
     // 遍历当前目录，找出后缀为 xlsx 的文件夹读取，忽略以 ~ 开头的文件
     travel(dir, (fileName) => {
       // console.log(fileName);
@@ -309,7 +309,10 @@ function render(books) {
 
 outputbtn.addEventListener('click', event => {
   if (alert.innerHTML === '数据已渲染完毕') {
-    console.log(tableData)
+    showOutputDialog().then(dir => {
+      console.log(dir);
++     output(dir, tableData);
+    })
   }
 }, false)
 

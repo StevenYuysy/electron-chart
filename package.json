@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "test": "electron-packager . --overwrite",
     "package": "electron-packager . Electron-chart --platform=win32 --out=build"
   },
   "devDependencies": {
@@ -12,9 +13,10 @@
     "electron-packager": "^8.7.0"
   },
   "dependencies": {
-    "echarts": "^3.3.2",
+    "echarts": "^3.6.1",
     "exceljs": "^0.2.39",
     "regression": "^1.4.0",
-    "xlsx": "^0.8.0"
+    "xlsx": "^0.8.0",
+    "zrender": "^3.5.1"
   }
 }
